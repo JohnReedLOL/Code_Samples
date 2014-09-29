@@ -1,0 +1,12 @@
+<html>
+<body>
+<br><br><br>
+	<a href="games.php">back</a>
+	<br><br>
+<div id="div1">
+	<object style="z-index: 2;"width="1200" height="900" data="company-of-myself.swf"></object>
+	<div class="game">
+	<br><br>
+	</div>
+</body>
+</html>

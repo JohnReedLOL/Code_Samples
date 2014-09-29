@@ -1,0 +1,91 @@
+<img src="logoMKII.png"/>
+<a href = "http://google.com" title = "Awesome Search Engine">
+	<img src="Koala.jpg" align="right" style="border:5px solid green; box-shadow: 10px 10px 5px #888888;"/>
+</a>
+<br>
+<?php
+if(! ini_get('date.timezone') )
+{
+	date_default_timezone_set('GMT');
+}
+
+require 'core.php';
+require 'dbconnect.php';
+
+if(loggedin()){
+	$firstname = getfield('firstname');
+	$surname = getfield('surname');
+	echo "You are logged in $firstname $surname. <a href= 'login/logout.php'>Logout here</a><br />";
+	echo "<br /><br /><a href=\"../posts/post.php\">Post something</a>";
+?>
+<form method="post" action="temp_index.php">
+	<br>View:
+	<select name="posts">
+		<option value="All">All</option>
+		<option value="Oldest">Oldest</option>
+		<option value="Newest">Newest</option>
+		<option value="Most viewed">Popular</option>
+		<option value="Least viewed">Less Popular</option>
+	</select>
+	<br>Basic search:<input type="text" name="search" /><br />
+	<input type="submit" value="Select" />
+</form>
+<?php
+	echo "<a href=\"../search/adv_search.php\">Advanced Search</a><br />";
+	if (!empty($_POST['search'])) {
+		$search = $_POST['search'];
+		$result = pg_query($db,"SELECT id, title FROM anon.posts WHERE title LIKE '%$search%' ORDER BY title;");
+		if (!pg_num_rows($result)) {
+			echo "<br>There are no posts - why not create one?<br>";
+		} 
+		else {
+			echo "<br><u>Search results:</u><br><br>";
+			while ($row = pg_fetch_array($result,NULL,PGSQL_ASSOC)) {
+			   echo "<a href=\"../posts/read.php?MBID=$row[id]\"> $row[title]</a><br />";
+			}
+		}
+	}
+	else if (!empty($_POST['posts'])) {
+		$option = $_POST['posts'];
+		if($option == 'Newest'){
+			$result = pg_query($db,"SELECT * FROM anon.get_newest ORDER BY title;");
+		}
+		else if($option == 'Oldest'){
+			$result = pg_query($db,"SELECT id, title FROM anon.posts WHERE datesubmitted = (SELECT MIN(datesubmitted) as max FROM anon.posts) ORDER BY title;");
+		}
+		else if($option == 'Most viewed'){
+			$result = pg_query($db,"SELECT id, title FROM anon.posts WHERE views >= (SELECT AVG(views) as max FROM anon.posts) ORDER BY title;");
+		}
+		else if($option == 'Least viewed'){
+			$result = pg_query($db,"SELECT id, title FROM anon.posts WHERE views < (SELECT AVG(views) as min FROM anon.posts) ORDER BY title;");
+		}
+		else{
+			$result = pg_query($db,"SELECT id, title FROM anon.posts ORDER BY title;");
+		}
+		if (!pg_num_rows($result)) {
+			echo "<br>There are no posts - why not create one?<br>";
+		} 
+		else {
+			echo "<br><u>$option posts:</u><br><br>";
+			while ($row = pg_fetch_array($result,NULL,PGSQL_ASSOC)) {
+			   echo "<a href=\"../posts/read.php?MBID=$row[id]\"> $row[title]</a><br />";
+			}
+		}
+	}
+	else{
+		$result = pg_query($db,"SELECT id, title FROM anon.posts ORDER BY title;");
+		if (!pg_num_rows($result)) {
+			echo "<br>There are no posts - why not create one?<br>";
+		} 
+		else {
+			echo "<br><u>All posts:</u><br><br>";
+			while ($row = pg_fetch_array($result,NULL,PGSQL_ASSOC)) {
+			   echo "<a href=\"../posts/read.php?MBID=$row[id]\"> $row[title]</a><br />";
+			}
+		}
+	}
+}
+else{
+	include 'login/login_form.php';
+}
+?>

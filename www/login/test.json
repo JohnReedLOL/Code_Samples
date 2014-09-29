@@ -1,0 +1,24 @@
+{
+	"Player": [
+		"C Prather" {
+			"Rebounds": 3,
+			"Assists": 1,
+			"Points": 7
+		},
+		"S Wilbekin" {
+			"Rebounds": 1,
+			"Assists": 1,
+			"Points": 4
+		},
+		"P Young" {
+			"Rebounds": 2,
+			"Assists": 0,
+			"Points": 3
+		},
+		"M Frazier II" {
+			"Rebounds": 2,
+			"Assists": 0,
+			"Points": 3
+		}
+	]
+}

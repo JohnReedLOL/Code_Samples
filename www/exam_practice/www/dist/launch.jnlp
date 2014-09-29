@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp codebase="file:/home/johnmichaelreed/Downloads/ConverterPrj/dist/" href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>ConverterPrj</title>
+        <vendor>johnmichaelreed2</vendor>
+        <homepage href=""/>
+        <description>ConverterPrj</description>
+        <description kind="short">ConverterPrj</description>
+    <icon href="Female.png" kind="default"/>
+</information>
+    <update check="always"/>
+    <resources>
+        <j2se version="1.5+"/>
+        <jar href="ConverterPrj.jar" main="true"/>
+    </resources>
+    <application-desc main-class="Converter">
+    </application-desc>
+</jnlp>

@@ -1,0 +1,118 @@
+DB creation:
+
+CREATE SCHEMA anon
+  AUTHORIZATION postgres;
+
+CREATE SEQUENCE anon.auto_inc_count
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 57
+  CACHE 1;
+ALTER TABLE anon.auto_inc_count
+  OWNER TO postgres;
+  
+CREATE SEQUENCE anon.auto_inc_posts
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 22
+  CACHE 1;
+ALTER TABLE anon.auto_inc_posts
+  OWNER TO postgres;
+  
+CREATE SEQUENCE anon.auto_inc_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 15
+  CACHE 1;
+ALTER TABLE anon.auto_inc_seq
+  OWNER TO postgres;
+  
+CREATE TABLE anon.count
+(
+  id integer NOT NULL DEFAULT nextval('anon.auto_inc_count'::regclass),
+  user_id integer,
+  msg_id integer,
+  CONSTRAINT count_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE anon.count
+  OWNER TO postgres;
+
+CREATE TABLE anon.posts
+(
+  id integer NOT NULL DEFAULT nextval('anon.auto_inc_posts'::regclass),
+  poster character varying(40),
+  title character varying(80),
+  datesubmitted character varying(40),
+  message text,
+  views integer NOT NULL DEFAULT 0,
+  viewcnt integer NOT NULL DEFAULT 10,
+  CONSTRAINT posts_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE anon.posts
+  OWNER TO postgres;
+
+CREATE TABLE anon.users
+(
+  id integer NOT NULL DEFAULT nextval('anon.auto_inc_seq'::regclass),
+  username character varying(40),
+  password character varying(32),
+  firstname character varying(40),
+  surname character varying(40),
+  CONSTRAINT users_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE anon.users
+  OWNER TO postgres;
+
+CREATE TABLE anon.comments
+(
+  id integer NOT NULL DEFAULT nextval('anon.auto_inc_posts'::regclass),
+  pid integer NOT NULL,
+  poster character varying(30),
+  datesubmitted character varying(40),
+  message text,
+  CONSTRAINT comments_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE anon.comments
+  OWNER TO postgres;
+
+CREATE TABLE anon.friends
+(
+  id serial NOT NULL,
+  friend_1 character varying(40),
+  friend_2 character varying(40),
+  CONSTRAINT friends_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE anon.friends
+  OWNER TO postgres;
+
+CREATE TABLE anon.friend_req
+(
+  id serial NOT NULL,
+  name character varying(40),
+  fname character varying(40),
+  message text,
+  CONSTRAINT friend_req_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE anon.friend_req
+  OWNER TO postgres;

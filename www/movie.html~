@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>movie.html</title>
+</head>
+
+<body>
+<video width="1920" height="1080" controls preload="meta">
+  <source src="Pan's.Labyrinth.2006.1080p.BluRay.x264.anoXmous_.mp4" type="video/mp4">
+  <track src="movie_eng.vtt" label="English subtitles" kind="subtitles"  srclang="en" default>
+</video>
+</body>
+</html>

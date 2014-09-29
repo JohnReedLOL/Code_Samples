@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>Hello World, AngularJS - ViralPatel.net</title>
+    <script type="text/javascript"
+        src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+ 
+</head>
+<body>
+     
+    Write some text in textbox:
+    <input type="text" ng-model="score" />
+ 
+    <h1 ng-show="score">SAT math: {{ score }}</h1>
+    <h4> lowercase: {{ score | lowercase }}</h4>
+    <h4> uppercase: {{ score | uppercase }}</h4>
+     
+</body>
+</html>

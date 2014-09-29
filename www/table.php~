@@ -1,0 +1,23 @@
+<html>
+        <head>
+        <title>table.php </title>
+        </head>
+        <body>
+
+        <?php
+
+        // The value of the variable month is found
+        echo "<h1>Month is " . $_GET["month"] . "</h1>";
+
+	$month = $_GET["month"];
+         
+        // The value of the variable day is found
+        echo "<h1>Day is " . $_GET["day"] . " </h1>";
+
+	$day = $_GET["day"];
+	echo $day;
+
+        ?>
+
+        </body>
+</html>

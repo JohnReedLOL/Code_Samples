@@ -1,0 +1,97 @@
+<html>
+<title> Anonymous World </title>
+<link rel="stylesheet" href="style.css">
+<header class="1">
+<img class="logo" src="logoMKIII.png" width = "150" height="75">
+<br>
+<h1 class="header"> Games and Downloads </h1>
+<div id="left"></div>
+<div id="right"></div>
+<div id="top"></div>
+<div id="bottom"></div>
+<ul class="navbar">
+	<li><a class="nav1" href="index.php">Home</a></li>
+	<li><a class="nav2" href="posts.php">Posts</a></li>
+	<!--<li><a class="nav3" href="privacy.php">Privacy</a></li>-->
+	<li><a class="nav3" href="games.php">Games</a></li>
+	<li><a class="nav4" href="about_us.php">About Us</a></li>
+</ul>
+</header>
+<body class="games">
+<div class="login">
+<?php
+if(! ini_get('date.timezone') )
+{
+    date_default_timezone_set('America/New_York');
+}
+
+include 'core.php';
+require 'dbconnect.php';
+
+if(loggedin()){
+	$firstname = getfield('firstname');
+	$surname = getfield('surname');
+	$rank = rank($_SESSION['user_name']);
+	echo "You are logged in $rank $firstname.";
+?>
+<form method="link" action="login/logout.php"> 
+	<input type="submit" value="Logout Here"></form>
+</div>
+<br><br>
+<div id="div1">
+<!--
+	<object style="z-index: 2;"width="800" height="600" data="company-of-myself.swf"></object>
+	<div class="game">
+	-->
+	<br><br><br>
+<form action="upload_file.php" method="post"
+enctype="multipart/form-data">
+<label for="file">Filename:</label>
+<input type="file" name="file" id="file"><br>
+<input type="submit" name="submit" value="Submit">
+</form>
+
+<a href="upload/">Get uploads</a>
+<p> Right click "Save Link As..." to save a file from the uploads folder.</p>
+
+<br><br>
+<!--<p>&nbsp;-->
+<a href="The_Company_of_Myself">Play an anonymous and lonely game.</a>
+<br>
+<br>
+<!--<p>&nbsp;-->
+<a href="Sqaure_World.jar"target="_blank">Download John and Vlads Anonymous World Online Java executable (game server down, extract client side source code from JAR file)</a>
+<br>
+
+<br>
+<p> Melancholy videogame music: </p>
+<audio controls>
+  <source src="legit-fake-wings.mp3" type="audio/mpeg">\
+</audio>
+</p>
+
+
+</div>
+</div>
+<div id="div2">
+<div class="friends">
+	<?php
+		friends($here);
+	?>
+</div>
+<div class="chat">
+	<?php
+		chat($here);	
+	?>
+</div>
+<div class="loginform">
+	<?php
+		}
+		else{
+			include 'login/login_form.php';
+			echo '</div><br><br><h2 class="SecondHeader"> Please login to view this page. </h2>';
+		}
+	?>
+</div>
+</body>
+</html>

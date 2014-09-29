@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body id="yolo">
+<script >
+var result = 
+{	
+	"relation" : [
+		{
+			"Player" : "C Prather",
+			"Rebounds": 3,
+			"Assists": 1,
+			"Points": 7
+		},
+		{
+			"Player": "S Wilbekin",
+			"Rebounds": 1,
+			"Assists": 1,
+			"Points": 4
+		},
+		{
+			"Player": "P Young",
+			"Rebounds": 2,
+			"Assists": 0,
+			"Points": 3
+		},
+		{
+			"Player" : "M Frazier II",
+			"Rebounds": 2,
+			"Assists": 0,
+			"Points": 3
+		}
+	]
+};
+var txt = result.relation[0].Player + result.relation[0].Rebounds + result.relation[0].Assists + result.relation[0].Points;
+
+document.getElementById("yolo").innerHTML=txt;
+</script>
+</body>
+</html>

@@ -2,6 +2,10 @@
 Thumbs.db
 ehthumbs.db
 
+#These take up a lot of space and contain binaries
+X64workspace/
+bin/
+
 # Folder config file
 Desktop.ini
 

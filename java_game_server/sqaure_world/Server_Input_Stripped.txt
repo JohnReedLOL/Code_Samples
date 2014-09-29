@@ -1,0 +1,131 @@
+//For closing, have other side send signal to terminate connection. Do nothing on close:
+//http://www.java-forums.org/awt-swing/53761-closing-program.html
+
+package The_Server_Files;
+
+import java.io.*;
+import java.net.*;
+
+/**
+ * Each instance of this class gets all input from one client.
+ * @author JohnReedLOL
+ */
+class Server_Input implements Runnable 
+{
+            private Socket client;
+ 
+            Server_Input(Socket client) {
+                this.client = client;
+            }
+ 
+     public void run() 
+     {
+
+
+
+while(true)
+{
+
+	ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+	Object in_object = in.readObject(); 
+
+String string_object = null;
+
+String input_class = null;
+
+try 
+{
+       string_object = (String) in_object;
+
+	if(string_object == null) {System.out.println("String_object is null in file Server_Input");}
+
+	else {System.out.println("String object obtained."); input_class = "String";}
+} 
+catch (ClassNotFoundException e) 
+{
+	System.out.println("Failed to cast to String in file Server_Input.");
+	e.printStackTrace();
+}
+
+	in.close;
+
+	in = null; //Done getting input for this loop.
+
+	ObjectOutputStream out = null;
+
+	if(input_class.contentEquals("String") && string_object.contains(":") )
+	
+	{
+
+		Player_Info temp_info = players.get(line.substring(0, line.indexOf(':'));
+
+		if(temp_info != null)
+	
+		{
+
+			OutputStream out_stream = temp_info.outgoing_socket.getOutputStream();
+
+			out = new ObjectOutputStream(out_stream);
+        
+			out.writeObject(string_object);        
+			out.flush();
+
+			out.close();
+
+			out = null;
+
+			out_stream.close();
+
+			out_stream = null;
+
+		}
+
+		else 
+
+		{
+	
+			System.out.println("Inexplicable circumstance. Abort.");
+			System.exit(1);
+
+		}
+	
+	}
+
+	else if(input_class.contentEquals("String") && string_object.contentEquals("logout"))
+	
+	{
+		client.close();
+		client = null;
+		return; //End thread
+
+	}
+
+	else if( input_class.contentEquals("String") )
+
+	{
+		//SIGNAL EVERYONE.
+		for (String player_name : Sqaure_World_Server.players.keySet())
+		{
+
+			OutputStream out_stream = temp_info.outgoing_socket.getOutputStream();
+
+			out = new ObjectOutputStream(out_stream);
+        
+			out.writeObject(string_object);        
+			out.flush();
+
+			out.close();
+
+			out = null;
+
+			out_stream.close();
+
+			out_stream = null;
+
+		}
+
+	}
+    }//End thread
+}//End while loop
+}//End class
